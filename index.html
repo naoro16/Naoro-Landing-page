@@ -1,0 +1,276 @@
+# Crie o arquivo Indpage.html no Termux
+cat > Indpage.html << 'EOF'
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Naoro | Sobre Mim</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Inter', 'Segoe UI', sans-serif;
+            background: #000; color: #fff; line-height: 1.6;
+            min-height: 100vh; display: flex; justify-content: center;
+            align-items: center; padding: 20px;
+        }
+        .container {
+            max-width: 800px; width: 100%; background: #111;
+            border-radius: 20px; overflow: hidden;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+            border: 1px solid #333;
+        }
+        .header {
+            background: linear-gradient(135deg, #000 0%, #222 100%);
+            padding: 3rem 2rem; text-align: center; position: relative;
+        }
+        .photo-container {
+            width: 180px; height: 180px; margin: 0 auto 2rem;
+            position: relative;
+        }
+        .photo-frame {
+            width: 100%; height: 100%; border-radius: 50%;
+            background: linear-gradient(135deg, #fff 0%, #ccc 100%);
+            padding: 5px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
+            animation: float 6s ease-in-out infinite;
+        }
+        .photo-img {
+            width: 100%; height: 100%; border-radius: 50%;
+            object-fit: cover; border: 3px solid #000;
+            display: flex; align-items: center; justify-content: center;
+        }
+        .name {
+            color: #fff; font-size: 3.2rem; font-weight: 800;
+            letter-spacing: 2px; text-shadow: 3px 3px 0 #000,
+                6px 6px 10px rgba(0,0,0,0.8), 0 0 20px rgba(255,255,255,0.1);
+            margin-bottom: 0.5rem; text-transform: uppercase;
+        }
+        .tagline {
+            color: #aaa; font-size: 1.1rem; letter-spacing: 3px;
+            text-transform: uppercase; margin-bottom: 1.5rem;
+        }
+        .divider {
+            width: 100px; height: 2px;
+            background: linear-gradient(90deg, transparent, #fff, transparent);
+            margin: 0 auto;
+        }
+        .content { padding: 3rem; background: #0a0a0a; }
+        .section-title {
+            color: #fff; font-size: 1.5rem; margin-bottom: 1.5rem;
+            position: relative; display: inline-block;
+        }
+        .section-title::after {
+            content: ''; position: absolute; left: 0; bottom: -5px;
+            width: 50px; height: 2px; background: #fff;
+        }
+        .bio-text { color: #ccc; font-size: 1.05rem; margin-bottom: 2rem; }
+        .highlight { color: #fff; font-weight: 600; position: relative; }
+        .highlight::before {
+            content: ''; position: absolute; left: -2px; right: -2px;
+            bottom: 0; height: 30%; background: rgba(255,255,255,0.1);
+            z-index: -1;
+        }
+        .quote {
+            font-style: italic; color: #999; border-left: 3px solid #555;
+            padding-left: 1.5rem; margin: 2.5rem 0;
+            font-size: 1.1rem; line-height: 1.8;
+        }
+        /* BARRA DE SKILLS */
+        .skills-container { margin: 2rem 0 3rem 0; }
+        .skills-section-title {
+            color: #fff; font-size: 1.3rem; margin-bottom: 1rem;
+            display: flex; align-items: center; gap: 10px;
+        }
+        .skills-section-title::before { content: "💻"; font-size: 1.2rem; }
+        .skills-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem; margin-top: 1.5rem;
+        }
+        .skill-item {
+            background: rgba(255,255,255,0.03); border: 1px solid #333;
+            border-radius: 10px; padding: 1.2rem;
+            transition: transform 0.3s ease, border-color 0.3s ease;
+        }
+        .skill-item:hover { transform: translateY(-3px); border-color: #555; }
+        .skill-header {
+            display: flex; justify-content: space-between;
+            align-items: center; margin-bottom: 0.8rem;
+        }
+        .skill-name {
+            font-size: 1.1rem; color: #fff;
+            display: flex; align-items: center; gap: 8px;
+        }
+        .skill-level {
+            color: #4cc9f0; font-weight: bold; font-size: 0.9rem;
+            background: rgba(76,201,240,0.1); padding: 0.2rem 0.6rem;
+            border-radius: 12px;
+        }
+        .skill-bar {
+            height: 10px; background: #222; border-radius: 5px;
+            overflow: hidden; position: relative;
+        }
+        .skill-progress {
+            height: 100%; border-radius: 5px;
+            transition: width 1.5s ease-in-out;
+            position: relative; overflow: hidden;
+        }
+        .skill-progress::after {
+            content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            animation: shimmer 2s infinite;
+        }
+        .html { background: linear-gradient(90deg, #e34c26, #f06529); width: 70%; }
+        .css { background: linear-gradient(90deg, #264de4, #2965f1); width: 70%; }
+        .javascript { background: linear-gradient(90deg, #f0db4f, #f7df1e); width: 40%; }
+        .python { background: linear-gradient(90deg, #306998, #4B8BBE); width: 40%; }
+        .skill-name::before { font-size: 1.2rem; }
+        .skill-name.html::before { content: "🌐"; }
+        .skill-name.css::before { content: "🎨"; }
+        .skill-name.javascript::before { content: "⚡"; }
+        .skill-name.python::before { content: "🐍"; }
+        .skills-tags {
+            display: flex; flex-wrap: wrap; gap: 10px; margin-top: 1rem;
+        }
+        .skill-tag {
+            background: #222; color: #fff; padding: 0.5rem 1.2rem;
+            border-radius: 20px; font-size: 0.9rem; border: 1px solid #444;
+            transition: all 0.3s ease;
+        }
+        .skill-tag:hover { background: #333; transform: translateY(-2px); }
+        @keyframes float {
+            0%,100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        @keyframes shimmer {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .skill-item { animation: fadeIn 0.5s ease-out forwards; }
+        .skill-item:nth-child(1) { animation-delay: 0.1s; }
+        .skill-item:nth-child(2) { animation-delay: 0.2s; }
+        .skill-item:nth-child(3) { animation-delay: 0.3s; }
+        .skill-item:nth-child(4) { animation-delay: 0.4s; }
+        .footer {
+            text-align: center; padding: 2rem; background: #000;
+            color: #666; font-size: 0.9rem; border-top: 1px solid #222;
+        }
+        hr {
+            border: none; height: 1px;
+            background: linear-gradient(90deg, transparent, #444, transparent);
+            margin: 1.5rem 0;
+        }
+        @media (max-width: 768px) {
+            .container { border-radius: 15px; }
+            .header { padding: 2rem 1rem; }
+            .photo-container { width: 150px; height: 150px; }
+            .name { font-size: 2.5rem; }
+            .content { padding: 2rem 1.5rem; }
+            .skills-grid { grid-template-columns: 1fr; }
+            .skill-item { padding: 1rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="photo-container">
+                <div class="photo-frame">
+                    <div class="photo-img">
+                        <img src="img/iago.jpg" alt="Naoro" class="photo-img">
+                    </div>
+                </div>
+            </div>
+            <h1 class="name">Naoro</h1>
+            <div class="tagline">WebDev, Gamedev, Cyber Seguranca</div>
+            <div class="divider"></div>
+        </div>
+        <div class="content">
+            <h2 class="section-title">Sobre Mim</h2>
+            <div class="bio-text">
+                <p>Sou <span class="highlight">Naoro</span> — estudante de <span class="highlight">criação de websites, gamedev e pentester.</span></p>
+                <hr>
+                <p>Minha essência está em estudar TI em todas as áreas. Estou nisso desde os 13 anos.</p>
+                <hr>
+                <p>Meus objetivos: trabalhar na área, comprar um PC, fazer faculdade de TI.</p>
+                <hr>
+                <div class="quote">"Se voce tem algum sonho CORRA ATRAS antes que nao tenha mais chances."</div>
+                <hr>
+                <p>eu sou uma pessoa focada no que gosto, sou determinado, curiosidade alta em t.i, t.i esta no meu dna.</p>
+                <hr>
+                <p>Cursos: DevGames, WebDev, Informática, Lógica de programação, CyberSecurity.</p>
+            </div>
+            
+            <h2 class="section-title">Habilidades</h2>
+            <div class="skills-container">
+                <h3 class="skills-section-title">Progresso nas Linguagens</h3>
+                <div class="skills-grid">
+                    <div class="skill-item">
+                        <div class="skill-header">
+                            <span class="skill-name html">HTML</span>
+                            <span class="skill-level">Médio</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress html"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-header">
+                            <span class="skill-name css">CSS</span>
+                            <span class="skill-level">Médio</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress css"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-header">
+                            <span class="skill-name javascript">JavaScript</span>
+                            <span class="skill-level">Baixo</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress javascript"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-header">
+                            <span class="skill-name python">Python</span>
+                            <span class="skill-level">Baixo</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress python"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="skills-tags">
+                <span class="skill-tag">WebDev</span>
+                <span class="skill-tag">Gamedev</span>
+                <span class="skill-tag">Cyber Seguranca</span>
+                <span class="skill-tag">HTML</span>
+                <span class="skill-tag">CSS</span>
+                <span class="skill-tag">Javascript</span>
+                <span class="skill-tag">Python</span>
+            </div>
+        </div>
+        <div class="footer">
+            © 2023 Naoro. Todos os direitos reservados. | Conecte ideias, inspire mudanças.
+        </div>
+    </div>
+    <script>
+        window.addEventListener('load', () => {
+            document.querySelectorAll('.skill-progress').forEach(bar => {
+                const width = bar.style.width;
+                bar.style.width = '0';
+                setTimeout(() => {
+                    bar.style.width = width;
+                }, 500);
+            });
+        });
+    </script>
+</body>
+</html>
+EOF
